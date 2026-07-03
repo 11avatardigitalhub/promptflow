@@ -91,7 +91,7 @@
             messagingSenderId:"681657211558",
             appId:"1:681657211558:web:e25e5be6d347f3c1f2f267"
         };
-        const GK = "AQ.Ab8RN6JSnY_APcfQxHIPOLU7h5VWJzc9LgdjoyBXzEFTACmkig";
+        const GK = "AQ.Ab8RN6ITjLVzrLQqjQ_nDqCcSS-Nhr6qR2dHEefj73Ev_AwXgg";
 
         firebase.initializeApp(FC);
         const auth = firebase.auth();
@@ -274,7 +274,7 @@ Task: Deep Problem Analysis karo. Pehle 2-3 line mein simple Hindi mein batao ki
         // ========== HELPERS ==========
         async function G(prompt){
             try{
-                const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GK}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})});
+                const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GK}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})});
                 const d=await r.json();
                 return d.candidates?.[0]?.content?.parts?.[0]?.text||'No response';
             }catch(e){return 'Error: '+e.message;}
