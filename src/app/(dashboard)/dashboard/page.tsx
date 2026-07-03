@@ -1,8 +1,6 @@
 ﻿"use client";
 import { useState } from "react";
 
-const GEMINI_KEY = "AQ.Ab8RN6JSnY_APcfQxHIPOLU7h5VWJzc9LgdjoyBXzEFTACmkig";
-
 export default function PromptFlowPage() {
   const [prompt, setPrompt] = useState("");
   const [output, setOutput] = useState("");
@@ -12,6 +10,7 @@ export default function PromptFlowPage() {
     setLoading(true);
     setOutput("");
     try {
+      const GEMINI_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY || "";
       const res = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`,
         {
