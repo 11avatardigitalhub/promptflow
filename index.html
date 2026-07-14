@@ -3,223 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#7c3aed">
+    <meta name="theme-color" content="#1a1a1a">
     <link rel="manifest" href="manifest.json">
-    <title>PromptFlow AI - Smart Problem Solver</title>
+    <title>PromptFlow AI</title>
     <style>
         :root {
-            --bg: #0f0f1a;
-            --card: #1a1a2e;
-            --card2: #16213e;
-            --accent: #7c3aed;
-            --accent2: #a78bfa;
+            --bg: #f8f9fa;
+            --card: #ffffff;
+            --gold: #d4a853;
+            --gold-light: #f0d78c;
+            --black: #1a1a1a;
+            --text: #1a1a1a;
+            --text2: #6b7280;
+            --border: #e5e7eb;
+            --input-bg: #f3f4f6;
             --green: #10b981;
             --red: #ef4444;
-            --text: #e2e8f0;
-            --text2: #94a3b8;
-            --border: #1e293b;
-            --input: #0f0f1a;
-            --gradient: linear-gradient(135deg, #7c3aed, #a78bfa);
-            --glow: 0 0 40px rgba(124,58,237,0.15);
         }
         *{margin:0;padding:0;box-sizing:border-box}
         body{
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             background: var(--bg);
-            background-image: radial-gradient(ellipse at top, #1a1a3e 0%, #0f0f1a 60%);
             color: var(--text);
             min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
         }
-        .app{max-width:520px;margin:auto;padding:20px 16px 90px}
+        .app{max-width:520px;margin:auto;padding:16px 16px 90px}
 
-        /* Cards */
         .card{
             background: var(--card);
             border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 24px;
-            margin-bottom: 16px;
-            box-shadow: var(--glow);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s;
+            border-radius: 18px;
+            padding: 22px;
+            margin-bottom: 14px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
-        .card:hover{border-color: #7c3aed30;}
 
-        /* Header */
         .header{
-            background: var(--gradient);
-            border-radius: 24px;
-            padding: 28px 24px;
-            margin-bottom: 20px;
+            background: var(--black);
+            border-radius: 20px;
+            padding: 24px 20px;
+            margin-bottom: 18px;
+            color: #fff;
             position: relative;
             overflow: hidden;
         }
         .header::after{
             content: '';
             position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 150px;
-            height: 150px;
-            background: rgba(255,255,255,0.1);
+            top: -30px;
+            right: -20px;
+            width: 100px;
+            height: 100px;
+            background: var(--gold);
+            opacity: 0.15;
             border-radius: 50%;
         }
-        .header h1{font-size:22px;font-weight:800;letter-spacing:-0.5px}
-        .header .sub{font-size:13px;opacity:0.8;margin-top:4px}
+        .header h1{font-size:20px;font-weight:700;position:relative;z-index:1}
+        .header .sub{font-size:12px;opacity:0.7;margin-top:4px;position:relative;z-index:1}
         .header .logout-btn{
-            background: rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.1);
             border: 1px solid rgba(255,255,255,0.2);
             color: #fff;
-            padding: 8px 16px;
-            border-radius: 25px;
+            padding: 8px 14px;
+            border-radius: 20px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
-            backdrop-filter: blur(10px);
-            transition: all 0.2s;
+            position: relative;
+            z-index: 1;
         }
-        .header .logout-btn:hover{background:rgba(255,255,255,0.25)}
 
-        /* Buttons */
+        .gold-line{
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+            border-radius: 2px;
+            margin: 6px 0 16px;
+        }
+
         .btn{
-            width:100%;padding:14px 20px;border:none;border-radius:14px;
-            font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s;
-            letter-spacing:-0.2px;position:relative;overflow:hidden;
+            width:100%;padding:14px;border:none;border-radius:14px;
+            font-size:15px;font-weight:600;cursor:pointer;transition:all 0.2s;
         }
         .btn:active{transform:scale(0.97)}
-        .btn-pri{background:var(--gradient);color:#fff;box-shadow:0 4px 20px rgba(124,58,237,0.3)}
-        .btn-pri:hover{box-shadow:0 6px 30px rgba(124,58,237,0.5);transform:translateY(-1px)}
-        .btn-green{background:#10b981;color:#fff;box-shadow:0 4px 20px rgba(16,185,129,0.3)}
-        .btn-green:hover{box-shadow:0 6px 30px rgba(16,185,129,0.5);transform:translateY(-1px)}
-        .btn-out{background:transparent;color:var(--accent2);border:2px solid var(--accent);font-weight:700}
-        .btn-out:hover{background:var(--accent);color:#fff}
-        .btn-red{background:transparent;color:var(--red);border:2px solid var(--red)}
-        .btn:disabled{opacity:0.4;cursor:not-allowed;transform:none!important}
+        .btn-pri{background:var(--black);color:#fff}
+        .btn-pri:hover{background:#333}
+        .btn-gold{background:linear-gradient(135deg,var(--gold),#c9963e);color:#fff}
+        .btn-gold:hover{opacity:0.9}
+        .btn-green{background:var(--green);color:#fff}
+        .btn-out{background:#fff;color:var(--black);border:2px solid var(--black);font-weight:600}
+        .btn-red{background:#fff;color:var(--red);border:2px solid var(--red)}
+        .btn:disabled{opacity:0.4;cursor:not-allowed}
         .btn-sm{width:auto;padding:8px 18px;font-size:13px;border-radius:10px}
 
-        /* Inputs */
         .input{
-            width:100%;padding:14px 16px;border:2px solid var(--border);
-            border-radius:14px;font-size:15px;margin-bottom:12px;font-family:inherit;
-            background:var(--input);color:var(--text);transition:all 0.2s;
+            width:100%;padding:14px;border:2px solid var(--border);
+            border-radius:14px;font-size:15px;margin-bottom:10px;font-family:inherit;
+            background:var(--input-bg);color:var(--text);transition:all 0.2s;
         }
-        .input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px rgba(124,58,237,0.1)}
-        .input::placeholder{color:#475569}
-        textarea.input{min-height:110px;resize:vertical;line-height:1.6}
-        select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:40px}
+        .input:focus{outline:none;border-color:var(--gold);background:#fff;box-shadow:0 0 0 4px rgba(212,168,83,0.08)}
+        .input::placeholder{color:#9ca3af}
+        textarea.input{min-height:100px;resize:vertical}
+        select.input{background:var(--input-bg)}
 
-        /* Tabs */
-        .tabs{display:flex;gap:8px;margin-bottom:20px;background:var(--card);padding:6px;border-radius:16px;border:1px solid var(--border)}
+        .tabs{display:flex;gap:6px;margin-bottom:18px;background:var(--card);padding:5px;border-radius:16px;border:1px solid var(--border)}
         .tab{
-            flex:1;padding:12px;text-align:center;border-radius:12px;cursor:pointer;
-            font-weight:700;font-size:14px;border:none;background:transparent;color:var(--text2);
-            transition:all 0.3s;
+            flex:1;padding:11px;text-align:center;border-radius:12px;cursor:pointer;
+            font-weight:600;font-size:14px;border:none;background:transparent;color:var(--text2);
         }
-        .tab.active{background:var(--gradient);color:#fff;box-shadow:0 4px 15px rgba(124,58,237,0.3)}
+        .tab.active{background:var(--black);color:#fff}
 
-        /* Progress */
-        .progress{display:flex;gap:5px;margin-bottom:20px}
-        .pdot{flex:1;height:4px;border-radius:2px;background:var(--border);transition:all 0.3s}
-        .pdot.done{background:var(--accent);box-shadow:0 0 10px rgba(124,58,237,0.5)}
-        .pdot.active{background:var(--accent);animation:pulse 1s infinite}
-        @keyframes pulse{50%{opacity:0.3;box-shadow:0 0 20px rgba(124,58,237,0.8)}}
+        .progress{display:flex;gap:4px;margin-bottom:18px}
+        .pdot{flex:1;height:4px;border-radius:2px;background:var(--border)}
+        .pdot.done{background:var(--gold)}
+        .pdot.active{background:var(--gold);animation:pulse 1s infinite}
+        @keyframes pulse{50%{opacity:0.3}}
 
-        /* Step Number */
         .step-num{
-            width:34px;height:34px;background:var(--gradient);color:#fff;
+            width:32px;height:32px;background:var(--black);color:#fff;
             border-radius:50%;display:inline-flex;align-items:center;
-            justify-content:center;font-weight:800;font-size:15px;margin-right:10px;
-            box-shadow:0 4px 15px rgba(124,58,237,0.4);
+            justify-content:center;font-weight:700;font-size:14px;margin-right:10px;
         }
 
-        /* Output */
         .output-box{
-            background:var(--card2);padding:20px;border-radius:16px;
-            white-space:pre-wrap;max-height:450px;overflow-y:auto;
-            font-size:14px;line-height:1.8;margin-top:14px;
-            border:1px solid var(--border);color:var(--text);
-            scrollbar-width:thin;scrollbar-color:var(--accent) var(--card2);
+            background:var(--input-bg);padding:18px;border-radius:14px;
+            white-space:pre-wrap;max-height:400px;overflow-y:auto;
+            font-size:14px;line-height:1.8;margin-top:12px;
+            border:1px solid var(--border);
         }
-        .output-box::-webkit-scrollbar{width:6px}
-        .output-box::-webkit-scrollbar-track{background:var(--card2);border-radius:10px}
-        .output-box::-webkit-scrollbar-thumb{background:var(--accent);border-radius:10px}
 
-        /* Badges */
         .badge{
-            display:inline-block;padding:8px 18px;border-radius:25px;
-            font-size:13px;font-weight:700;margin:4px;cursor:pointer;
-            background:var(--card2);color:var(--text2);border:1px solid var(--border);
-            transition:all 0.2s;
+            display:inline-block;padding:7px 16px;border-radius:20px;
+            font-size:13px;font-weight:600;margin:3px;cursor:pointer;
+            background:var(--input-bg);color:var(--text2);border:1px solid var(--border);
         }
-        .badge:hover{border-color:var(--accent);color:var(--text)}
-        .badge.sel{background:var(--gradient);color:#fff;border-color:transparent;box-shadow:0 4px 15px rgba(124,58,237,0.3)}
+        .badge:hover{border-color:var(--gold)}
+        .badge.sel{background:var(--black);color:#fff;border-color:var(--black)}
 
-        /* Stats */
-        .stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+        .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
         .stat{
             background:var(--card);border:1px solid var(--border);
-            border-radius:18px;padding:20px;text-align:center;
+            border-radius:16px;padding:18px;text-align:center;
         }
-        .stat-val{font-size:32px;font-weight:800;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .stat-lbl{font-size:12px;color:var(--text2);margin-top:6px;font-weight:600;text-transform:uppercase;letter-spacing:1px}
+        .stat-val{font-size:30px;font-weight:700;color:var(--black)}
+        .stat-lbl{font-size:11px;color:var(--text2);margin-top:4px;font-weight:600;text-transform:uppercase;letter-spacing:1px}
 
-        /* Bottom Nav */
         .bottom-nav{
-            position:fixed;bottom:16px;left:50%;transform:translateX(-50%);
+            position:fixed;bottom:12px;left:50%;transform:translateX(-50%);
             background:var(--card);display:flex;border:1px solid var(--border);
-            border-radius:20px;padding:6px;z-index:100;width:calc(100% - 32px);
-            max-width:500px;backdrop-filter:blur(20px);box-shadow:0 10px 40px rgba(0,0,0,0.5);
+            border-radius:18px;padding:4px;z-index:100;width:calc(100% - 24px);
+            max-width:500px;box-shadow:0 4px 20px rgba(0,0,0,0.08);
         }
         .nav-i{
-            flex:1;text-align:center;padding:12px 8px;cursor:pointer;
-            border-radius:14px;font-size:12px;font-weight:700;color:var(--text2);
-            border:none;background:none;transition:all 0.2s;
+            flex:1;text-align:center;padding:10px;cursor:pointer;
+            border-radius:14px;font-size:12px;font-weight:600;color:var(--text2);
+            border:none;background:none;
         }
-        .nav-i.active{color:#fff;background:var(--gradient);box-shadow:0 4px 15px rgba(124,58,237,0.3)}
+        .nav-i.active{background:var(--black);color:#fff}
 
-        /* Spinner */
         .spinner{
-            width:40px;height:40px;border:3px solid var(--border);
-            border-top-color:var(--accent);border-radius:50%;
-            animation:spin 0.8s linear infinite;margin:20px auto;
+            width:36px;height:36px;border:3px solid var(--border);
+            border-top-color:var(--gold);border-radius:50%;
+            animation:spin 0.7s linear infinite;margin:18px auto;
         }
         @keyframes spin{to{transform:rotate(360deg)}}
 
-        /* Toast */
         .toast{
-            position:fixed;bottom:100px;left:50%;transform:translateX(-50%);
-            background:var(--gradient);color:#fff;padding:14px 28px;
-            border-radius:30px;font-size:14px;font-weight:700;z-index:200;
-            animation:slideUp 0.3s;box-shadow:0 10px 30px rgba(124,58,237,0.5);
+            position:fixed;bottom:90px;left:50%;transform:translateX(-50%);
+            background:var(--black);color:#fff;padding:12px 24px;
+            border-radius:25px;font-size:14px;font-weight:600;z-index:200;
+            animation:slideUp 0.3s;
         }
-        @keyframes slideUp{from{opacity:0;transform:translateX(-50%) translateY(20px)}}
+        @keyframes slideUp{from{opacity:0;transform:translateX(-50%) translateY(15px)}}
 
-        /* Utility */
         .hidden{display:none!important}
         .center{text-align:center}
-        .mt1{margin-top:10px}.mt2{margin-top:18px}.mb1{margin-bottom:10px}
-        .flex{display:flex;gap:10px}.flex-btwn{display:flex;justify-content:space-between;align-items:center}
-        .label-text{font-weight:700;margin-bottom:8px;display:block;font-size:14px;color:var(--text)}
+        .mt1{margin-top:8px}.mt2{margin-top:16px}.mb1{margin-bottom:8px}
+        .flex{display:flex;gap:8px}.flex-btwn{display:flex;justify-content:space-between;align-items:center}
+        .label-text{font-weight:700;margin-bottom:6px;display:block;font-size:14px;color:var(--black)}
         .text2{color:var(--text2);font-size:13px}
-        .logo-text{font-size:32px;margin-bottom:8px}
+        .logo-text{font-size:40px;margin-bottom:6px}
         .error-text{color:var(--red);text-align:center;font-size:13px;margin-top:8px}
 
-        /* Auth Card */
         .auth-card{
             background:var(--card);border:1px solid var(--border);
-            border-radius:24px;padding:32px 24px;box-shadow:var(--glow);
+            border-radius:20px;padding:28px 22px;box-shadow:0 2px 12px rgba(0,0,0,0.04);
         }
-        .auth-card h2{font-size:24px;font-weight:800;margin-bottom:6px;letter-spacing:-0.5px}
+        .auth-card h2{font-size:22px;font-weight:700;margin-bottom:4px}
+        .auth-link{color:var(--gold);font-weight:700;text-decoration:none}
     </style>
 </head>
 <body>
     <div class="app" id="app"></div>
     <nav class="bottom-nav hidden" id="nav">
-        <button class="nav-i active" data-p="home">🏠</button>
-        <button class="nav-i" data-p="prompt">⚡</button>
-        <button class="nav-i" data-p="history">📋</button>
-        <button class="nav-i" data-p="profile">👤</button>
+        <button class="nav-i active" data-p="home">🏠 Home</button>
+        <button class="nav-i" data-p="prompt">⚡ Prompt</button>
+        <button class="nav-i" data-p="history">📋 History</button>
+        <button class="nav-i" data-p="profile">👤 Profile</button>
     </nav>
 
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
@@ -243,9 +222,9 @@
         }
 
         function AuthUI(){
-            var h='<div class="center" style="padding:60px 0 30px"><div class="logo-text">🧠</div><h1 style="font-size:32px;font-weight:800;letter-spacing:-1px;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent">PromptFlow AI</h1><p class="text2" style="margin-top:8px">Smart Problem Detector + Reconfirmation</p></div>';
-            h+='<div class="auth-card" id="loginBox"><h2>Welcome Back</h2><p class="text2 mb1">Login to continue</p><input id="le" class="input" type="email" placeholder="Email address"><input id="lp" class="input" type="password" placeholder="Password"><button onclick="L()" class="btn btn-pri">Sign In</button><p class="center mt1 text2">New here? <a href="#" onclick="TA()" style="color:var(--accent2);font-weight:700">Create Account</a></p></div>';
-            h+='<div class="auth-card hidden" id="signupBox"><h2>Create Account</h2><p class="text2 mb1">Free forever</p><input id="sn" class="input" placeholder="Full Name"><input id="se" class="input" type="email" placeholder="Email"><input id="sp" class="input" type="password" placeholder="Password (6+ characters)"><button onclick="S()" class="btn btn-green">Create Free Account</button><p class="center mt1 text2">Already registered? <a href="#" onclick="TA()" style="color:var(--accent2);font-weight:700">Sign In</a></p></div>';
+            var h='<div class="center" style="padding:50px 0 24px"><div class="logo-text">🧠</div><h1 style="font-size:28px;font-weight:800;color:var(--black)">PromptFlow AI</h1><p class="text2" style="margin-top:6px">Smart Problem Detector + Reconfirmation</p></div><div class="gold-line"></div>';
+            h+='<div class="auth-card" id="loginBox"><h2>Welcome Back</h2><p class="text2 mb1">Sign in to continue</p><input id="le" class="input" type="email" placeholder="Email address"><input id="lp" class="input" type="password" placeholder="Password"><button onclick="L()" class="btn btn-pri">Sign In</button><p class="center mt1 text2">New here? <a href="#" onclick="TA()" class="auth-link">Create Account</a></p></div>';
+            h+='<div class="auth-card hidden" id="signupBox"><h2>Create Account</h2><p class="text2 mb1">Free forever, no limits</p><input id="sn" class="input" placeholder="Full Name"><input id="se" class="input" type="email" placeholder="Email"><input id="sp" class="input" type="password" placeholder="Password (6+ chars)"><button onclick="S()" class="btn btn-gold">Create Free Account</button><p class="center mt1 text2">Already registered? <a href="#" onclick="TA()" class="auth-link">Sign In</a></p></div>';
             h+='<p id="ae" class="error-text"></p>';
             return h;
         }
@@ -257,20 +236,21 @@
         function HomeUI(){
             var h='<div class="header"><div class="flex-btwn"><div><h1>Hello, '+(U.displayName||U.email.split('@')[0]||'User')+' 👋</h1><p class="sub">Your Personal AI Advisor</p></div><button class="logout-btn" onclick="auth.signOut()">Logout</button></div></div>';
             h+='<div class="stats"><div class="stat"><div class="stat-val">'+(U.promptsUsed||0)+'</div><div class="stat-lbl">Solved</div></div><div class="stat"><div class="stat-val">Free</div><div class="stat-lbl">Plan</div></div></div>';
-            h+='<div class="card center"><div style="font-size:48px;margin-bottom:10px">🚀</div><h3 style="font-size:18px;margin-bottom:8px">Ready to solve problems?</h3><p class="text2 mb1">AI understands → Confirms → Delivers</p><button onclick="SP(\'prompt\')" class="btn btn-pri">Start Smart Flow</button></div>';
+            h+='<div class="card center"><div style="font-size:44px;margin-bottom:8px">🚀</div><h3 style="font-size:18px;margin-bottom:6px">Ready to solve problems?</h3><p class="text2 mb1">AI understands → Confirms → Delivers</p><button onclick="SP(\'prompt\')" class="btn btn-gold">Start Smart Flow</button></div>';
             return h;
         }
 
         function PromptUI(){
-            var h='<h2 style="font-size:20px;font-weight:800;margin-bottom:16px">Smart Problem Detector</h2>';
+            var h='<h2 style="font-size:20px;font-weight:700;margin-bottom:14px;color:var(--black)">Smart Problem Detector</h2>';
             h+='<div class="tabs"><button class="tab active" onclick="ST(\'simple\')">⚡ Quick</button><button class="tab" onclick="ST(\'master\')">🔬 Master Flow</button></div>';
-            h+='<div id="simplePanel"><div class="card"><textarea id="si" class="input" placeholder="Describe your problem in detail...&#10;&#10;e.g., My D2C brand sales dropped 40% in 3 months. Need complete turnaround strategy..."></textarea><button onclick="QS()" id="sB" class="btn btn-pri">Analyze & Generate</button><div id="sO" class="output-box hidden"></div></div></div>';
+            h+='<div id="simplePanel"><div class="card"><textarea id="si" class="input" placeholder="Describe your problem in detail...&#10;&#10;e.g., My D2C brand sales dropped 40% in 3 months..."></textarea><button onclick="QS()" id="sB" class="btn btn-pri">Analyze & Generate</button><div id="sO" class="output-box hidden"></div></div></div>';
             h+='<div id="masterPanel" class="hidden">'+MS1()+'</div>';
             h+='<div id="loadD" class="center hidden"><div class="spinner"></div><p class="text2">Deep analysis in progress...</p></div>';
             return h;
         }
         function ST(t){
-            document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active');});
+            var tabs=document.querySelectorAll('.tab');
+            for(var i=0;i<tabs.length;i++){tabs[i].classList.remove('active');}
             event.target.classList.add('active');
             document.getElementById('simplePanel').classList.toggle('hidden',t!=='simple');
             document.getElementById('masterPanel').classList.toggle('hidden',t!=='master');
@@ -292,27 +272,28 @@
         function MS2(){
             flow.goal=document.getElementById('mg').value;if(!flow.goal)return;
             var h='<div class="card"><div class="progress"><div class="pdot done"></div><div class="pdot active"></div><div class="pdot"></div><div class="pdot"></div></div><div class="label-text"><span class="step-num">2</span> Category & Audience</div><p class="text2 mb1">Select best category:</p><div id="cats">';
-            ['Marketing','Content','Tech','Business','Creative','Education','Social Media','Personal'].forEach(function(c){h+='<span class="badge" onclick="SC(\''+c+'\')">'+c+'</span>';});
-            h+='</div><input id="ma" class="input mt2" placeholder="Target Audience? e.g., Working professionals 25-40, Tier 1 cities"><button onclick="MS3()" class="btn btn-pri mt1">Next →</button></div>';
+            var cats=['Marketing','Content','Tech','Business','Creative','Education','Social','Personal'];
+            for(var i=0;i<cats.length;i++){h+='<span class="badge" onclick="SC(\''+cats[i]+'\')">'+cats[i]+'</span>';}
+            h+='</div><input id="ma" class="input mt2" placeholder="Target Audience? e.g., Working professionals 25-40"><button onclick="MS3()" class="btn btn-pri mt1">Next →</button></div>';
             document.getElementById('masterPanel').innerHTML=h;
         }
-        function SC(c){flow.cat=c;document.querySelectorAll('#cats .badge').forEach(function(b){b.classList.remove('sel');});event.target.classList.add('sel');}
+        function SC(c){flow.cat=c;var b=document.querySelectorAll('#cats .badge');for(var i=0;i<b.length;i++){b[i].classList.remove('sel');}event.target.classList.add('sel');}
         function MS3(){
             flow.aud=document.getElementById('ma').value;
-            var h='<div class="card"><div class="progress"><div class="pdot done"></div><div class="pdot done"></div><div class="pdot active"></div><div class="pdot"></div></div><div class="label-text"><span class="step-num">3</span> Tone & Requirements</div><select id="mt" class="input"><option>Professional</option><option>Friendly</option><option>Inspirational</option><option>Formal</option></select><textarea id="me" class="input mt1" placeholder="Extra requirements? e.g., Include SWOT analysis, 90-day plan..."></textarea><button onclick="MS4()" class="btn btn-green mt1">✨ Generate Analysis</button></div>';
+            var h='<div class="card"><div class="progress"><div class="pdot done"></div><div class="pdot done"></div><div class="pdot active"></div><div class="pdot"></div></div><div class="label-text"><span class="step-num">3</span> Tone & Requirements</div><select id="mt" class="input"><option>Professional</option><option>Friendly</option><option>Inspirational</option><option>Formal</option></select><textarea id="me" class="input mt1" placeholder="Extra requirements? e.g., Include SWOT, 90-day plan..."></textarea><button onclick="MS4()" class="btn btn-gold mt1">✨ Generate Analysis</button></div>';
             document.getElementById('masterPanel').innerHTML=h;
         }
         async function MS4(){
             flow.tone=document.getElementById('mt').value;flow.extra=document.getElementById('me').value;
             document.getElementById('masterPanel').innerHTML='<div class="card center"><div class="spinner"></div><p class="text2">Analyzing deeply...</p></div>';
-            reconfirmAnalysis=await G("Problem: \""+flow.goal+"\"\nCategory: "+(flow.cat||'General')+"\nAudience: "+(flow.aud||'General')+"\nTone: "+flow.tone+"\nRequirements: "+(flow.extra||'None')+"\n\nProvide a DEEP analysis (200+ words): What is the real problem? Root causes? Hidden factors? Emotional context? Then ask: Is this analysis correct?");
+            reconfirmAnalysis=await G("Problem: \""+flow.goal+"\"\nCategory: "+(flow.cat||'General')+"\nAudience: "+(flow.aud||'General')+"\nTone: "+flow.tone+"\nRequirements: "+(flow.extra||'None')+"\n\nProvide a DEEP analysis (200+ words): What is the real problem? Root causes? Then ask: Is this analysis correct?");
             var h='<div class="card"><div class="progress"><div class="pdot done"></div><div class="pdot done"></div><div class="pdot done"></div><div class="pdot active"></div></div><div class="label-text"><span class="step-num">4</span> AI Analysis - Confirm?</div><div class="output-box">'+reconfirmAnalysis+'</div><p class="label-text mt2">Is this analysis correct?</p><div class="flex"><button onclick="RC(\'yes\')" class="btn btn-green">✅ Yes, Perfect</button><button onclick="RC(\'no\')" class="btn btn-red">❌ No, Fix It</button></div></div>';
             document.getElementById('masterPanel').innerHTML=h;
         }
         async function RC(ans){
             if(ans==='yes'){
                 document.getElementById('masterPanel').innerHTML='<div class="card center"><div class="spinner"></div><p class="text2">Building Master Prompt...</p></div>';
-                var o=await G("Create an EXPERT-LEVEL MASTER PROMPT (300-500 words) for:\nProblem: \""+flow.goal+"\"\nCategory: "+(flow.cat||'General')+"\nAudience: "+(flow.aud||'General')+"\nTone: "+flow.tone+"\nAnalysis: \""+reconfirmAnalysis+"\"\n\nInclude: expert role, clear context, numbered deliverables, format requirements, constraints, success criteria. Ready to paste into any AI tool.");
+                var o=await G("Create an EXPERT-LEVEL MASTER PROMPT for:\nProblem: \""+flow.goal+"\"\nCategory: "+(flow.cat||'General')+"\nAudience: "+(flow.aud||'General')+"\nTone: "+flow.tone+"\nAnalysis: \""+reconfirmAnalysis+"\"\n\nInclude: expert role, clear context, numbered deliverables, format requirements. Ready to paste into any AI tool.");
                 var h='<div class="card"><div class="flex-btwn mb1"><span class="label-text">✅ Master Prompt Ready</span><span class="badge sel">Confirmed</span></div><div class="output-box" id="finalOutput">'+o+'</div><div class="flex mt2"><button onclick="CP()" class="btn btn-out">📋 Copy</button><button onclick="page=\'prompt\';reconfirmStep=0;R()" class="btn btn-pri">🔄 New Problem</button></div></div>';
                 document.getElementById('masterPanel').innerHTML=h;saveH(flow.goal,o,'master');
             }else{
@@ -322,24 +303,40 @@
         async function RCR(){
             var f=document.getElementById('rcf').value;if(!f)return;reconfirmHistory.push(f);
             document.getElementById('masterPanel').innerHTML='<div class="card center"><div class="spinner"></div><p class="text2">Re-analyzing...</p></div>';
-            reconfirmAnalysis=await G("Original: \""+flow.goal+"\"\nOld Analysis: \""+reconfirmAnalysis+"\"\nFeedback: \""+f+"\"\nAll feedback: "+JSON.stringify(reconfirmHistory)+"\n\nProvide FRESH deep analysis incorporating all feedback.");
+            reconfirmAnalysis=await G("Original: \""+flow.goal+"\"\nOld Analysis: \""+reconfirmAnalysis+"\"\nFeedback: \""+f+"\"\n\nProvide FRESH deep analysis incorporating all feedback.");
             document.getElementById('masterPanel').innerHTML='<div class="card"><div class="label-text"><span class="step-num">4</span> New Analysis - Correct?</div><div class="output-box">'+reconfirmAnalysis+'</div><div class="flex mt2"><button onclick="RC(\'yes\')" class="btn btn-green">✅ Yes!</button><button onclick="RC(\'no\')" class="btn btn-red">❌ Still No</button></div></div>';
         }
 
-        function HistoryUI(){return '<h2 style="font-size:20px;font-weight:800;margin-bottom:16px">History</h2><div id="hl">Loading...</div>';}
+        function HistoryUI(){return '<h2 style="font-size:20px;font-weight:700;margin-bottom:14px;color:var(--black)">History</h2><div id="hl">Loading...</div>';}
         async function loadHistory(){
-            if(!U)return;var s=await db.collection('prompts').where('userId','==',U.uid).orderBy('createdAt','desc').limit(30).get();
+            if(!U)return;
+            var s=await db.collection('prompts').where('userId','==',U.uid).orderBy('createdAt','desc').limit(30).get();
             var l=document.getElementById('hl');
             if(s.empty){l.innerHTML='<div class="card center"><p class="text2">No problems solved yet</p></div>';return;}
-            l.innerHTML='';s.forEach(function(d){var x=d.data(),div=document.createElement('div');div.className='card';div.innerHTML='<div class="flex-btwn"><span class="badge">'+(x.type||'simple')+'</span><span class="text2">'+new Date(x.createdAt).toLocaleDateString()+'</span></div><p class="mt1" style="font-size:14px">'+(x.prompt||'').substring(0,120)+'...</p>';l.appendChild(div);});
+            var docs=s.docs;
+            var h='';
+            for(var i=0;i<docs.length;i++){
+                var x=docs[i].data();
+                h+='<div class="card"><div class="flex-btwn"><span class="badge" style="background:var(--black);color:#fff;border:none">'+(x.type||'simple')+'</span><span class="text2">'+new Date(x.createdAt).toLocaleDateString()+'</span></div><p class="mt1" style="font-size:14px">'+(x.prompt||'').substring(0,100)+'...</p></div>';
+            }
+            l.innerHTML=h;
         }
-        async function saveH(p,o,t){if(!U)return;await db.collection('prompts').add({userId:U.uid,prompt:p,output:o,type:t,createdAt:new Date().toISOString()});await db.collection('users').doc(U.uid).update({promptsUsed:firebase.firestore.FieldValue.increment(1)});}
+        async function saveH(p,o,t){
+            if(!U)return;
+            await db.collection('prompts').add({userId:U.uid,prompt:p,output:o,type:t,createdAt:new Date().toISOString()});
+            var userRef=db.collection('users').doc(U.uid);
+            var doc=await userRef.get();
+            if(doc.exists){
+                var current=doc.data().promptsUsed||0;
+                await userRef.update({promptsUsed:current+1});
+            }
+        }
 
         function ProfileUI(){
-            var h='<h2 style="font-size:20px;font-weight:800;margin-bottom:16px">Profile</h2>';
+            var h='<h2 style="font-size:20px;font-weight:700;margin-bottom:14px;color:var(--black)">Profile</h2>';
             h+='<div class="card"><p class="text2">Name</p><p style="font-weight:700;font-size:16px">'+(U.displayName||'N/A')+'</p></div>';
             h+='<div class="card"><p class="text2">Email</p><p style="font-weight:700;font-size:16px">'+U.email+'</p></div>';
-            h+='<div class="card"><p class="text2">Plan</p><p style="font-weight:700;font-size:16px;color:var(--green)">Free Forever</p></div>';
+            h+='<div class="card"><p class="text2">Plan</p><p style="font-weight:700;font-size:16px;color:var(--gold)">Free Forever</p></div>';
             h+='<button onclick="auth.signOut()" class="btn btn-red mt2">Sign Out</button>';
             return h;
         }
@@ -359,14 +356,30 @@
         }
 
         function SP(p){
-            page=p;document.querySelectorAll('.nav-i').forEach(function(n){n.classList.remove('active');});
-            var el=document.querySelector('[data-p="'+p+'"]');if(el)el.classList.add('active');R();
+            page=p;
+            var navItems=document.querySelectorAll('.nav-i');
+            for(var i=0;i<navItems.length;i++){navItems[i].classList.remove('active');}
+            var el=document.querySelector('[data-p="'+p+'"]');
+            if(el)el.classList.add('active');
+            R();
         }
 
         auth.onAuthStateChanged(async function(u){
-            U=u;if(u){var d=await db.collection('users').doc(u.uid).get();if(d.exists){var du=d.data();U.displayName=du.name;U.promptsUsed=du.promptsUsed;}}R();
+            U=u;
+            if(u){
+                var d=await db.collection('users').doc(u.uid).get();
+                if(d.exists){
+                    var du=d.data();
+                    U.displayName=du.name;
+                    U.promptsUsed=du.promptsUsed;
+                }
+            }
+            R();
         });
-        document.getElementById('nav').addEventListener('click',function(e){if(e.target.dataset.p)SP(e.target.dataset.p);});
+
+        document.getElementById('nav').addEventListener('click',function(e){
+            if(e.target.dataset.p)SP(e.target.dataset.p);
+        });
     </script>
 </body>
 </html>
