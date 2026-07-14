@@ -72,6 +72,7 @@
 
     <script>
         // ========== CONFIG ==========
+                // ========== CONFIG ==========
         const FC = {
             apiKey: "AIzaSyCVonj30X4c-WaMzqngv5EuKv3YtDzqrxk",
             authDomain: "promptflow-ai-7de15.firebaseapp.com",
@@ -80,7 +81,7 @@
             messagingSenderId: "681657211558",
             appId: "1:681657211558:web:e25e5be6d347f3c1f2f267"
         };
-        const GK = "AQ.Ab8RN6ITjLVzrLQqjQ_nDqCcSS-Nhr6qR2dHEefj73Ev_AwXgg";
+        const GK = "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";
 
         firebase.initializeApp(FC);
         const auth = firebase.auth();
@@ -232,9 +233,21 @@
         // ========== HELPERS ==========
         async function G(prompt){
             try{
-                const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key='+GK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})});
+                const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+                    method:'POST',
+                    headers:{
+                        'Content-Type':'application/json',
+                        'Authorization':'Bearer '+GK
+                    },
+                    body:JSON.stringify({
+                        model:'llama-3.3-70b-versatile',
+                        messages:[{role:'user',content:prompt}],
+                        temperature:0.7,
+                        max_tokens:2000
+                    })
+                });
                 const d=await r.json();
-                return d.candidates?.[0]?.content?.parts?.[0]?.text||'No response';
+                return d.choices?.[0]?.message?.content||'No response';
             }catch(e){return 'Error: '+e.message;}
         }
         function CP(t){navigator.clipboard.writeText(t).then(function(){var x=document.createElement('div');x.className='toast';x.textContent='Copied! ✅';document.body.appendChild(x);setTimeout(function(){x.remove();},2000);});}
