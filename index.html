@@ -5,233 +5,213 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#1a1a1a">
     <link rel="manifest" href="manifest.json">
-    <title>PromptFlow AI</title>
+    <title>PromptFlow AI - Smart Problem Solver</title>
     <style>
         :root {
-            --bg: #f8f9fa;
+            --bg: #fafafa;
             --card: #ffffff;
-            --gold: #d4a853;
+            --gold: #c8963e;
+            --gold-light: #d4a853;
             --black: #1a1a1a;
             --text: #1a1a1a;
             --text2: #6b7280;
             --border: #e5e7eb;
-            --input-bg: #f3f4f6;
+            --input-bg: #f5f5f5;
             --green: #10b981;
             --red: #ef4444;
-            --shadow: 0 2px 8px rgba(0,0,0,0.04);
+            --shadow: 0 1px 3px rgba(0,0,0,0.06);
             --header-text: #ffffff;
-            --badge-bg: #f3f4f6;
+            --badge-bg: #f5f5f5;
             --badge-text: #6b7280;
-            --output-bg: #f3f4f6;
+            --output-bg: #f9fafb;
             --spinner-border: #e5e7eb;
         }
         [data-theme="dark"] {
-            --bg: #111827;
-            --card: #1f2937;
-            --gold: #f59e0b;
+            --bg: #0a0a0a;
+            --card: #171717;
+            --gold: #d4a853;
             --black: #ffffff;
-            --text: #f3f4f6;
-            --text2: #9ca3af;
-            --border: #374151;
-            --input-bg: #111827;
-            --green: #10b981;
-            --red: #ef4444;
-            --shadow: 0 2px 8px rgba(0,0,0,0.3);
-            --header-text: #ffffff;
-            --badge-bg: #374151;
-            --badge-text: #d1d5db;
-            --output-bg: #111827;
-            --spinner-border: #374151;
+            --text: #e5e5e5;
+            --text2: #a3a3a3;
+            --border: #262626;
+            --input-bg: #171717;
+            --shadow: 0 1px 3px rgba(0,0,0,0.3);
+            --badge-bg: #262626;
+            --badge-text: #a3a3a3;
+            --output-bg: #171717;
+            --spinner-border: #262626;
         }
         *{margin:0;padding:0;box-sizing:border-box}
         body{
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
-            transition: all 0.3s;
+            transition: background 0.3s, color 0.3s;
         }
-        .app{max-width:520px;margin:auto;padding:16px 16px 90px}
+        .app{max-width:500px;margin:auto;padding:16px 16px 90px}
 
         .card{
             background: var(--card);
             border: 1px solid var(--border);
-            border-radius: 18px;
-            padding: 22px;
-            margin-bottom: 14px;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 12px;
             box-shadow: var(--shadow);
         }
-
         .header{
-            background: #1a1a1a;
-            border-radius: 20px;
-            padding: 24px 20px;
-            margin-bottom: 18px;
-            color: var(--header-text);
+            background: var(--black);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            color: #fff;
             position: relative;
             overflow: hidden;
         }
         .header::after{
             content: '';
             position: absolute;
-            top: -30px;
+            top: -20px;
             right: -20px;
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             background: var(--gold);
-            opacity: 0.15;
+            opacity: 0.2;
             border-radius: 50%;
         }
-        .header h1{font-size:20px;font-weight:700;position:relative;z-index:1}
-        .header .sub{font-size:12px;opacity:0.7;margin-top:4px;position:relative;z-index:1}
+        .header h1{font-size:18px;font-weight:700;position:relative;z-index:1}
+        .header .sub{font-size:11px;opacity:0.7;margin-top:2px;position:relative;z-index:1}
         .header .logout-btn{
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.15);
             border: 1px solid rgba(255,255,255,0.2);
             color: #fff;
-            padding: 8px 14px;
+            padding: 6px 12px;
             border-radius: 20px;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             position: relative;
             z-index: 1;
         }
-
         .theme-toggle{
             background: var(--card);
             border: 1px solid var(--border);
             color: var(--text);
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: fixed;
-            top: 16px;
-            right: 16px;
+            top: 12px;
+            right: 12px;
             z-index: 200;
             box-shadow: var(--shadow);
         }
-
         .gold-line{
-            height: 3px;
-            background: linear-gradient(90deg, var(--gold), #fbbf24, var(--gold));
-            border-radius: 2px;
-            margin: 6px 0 16px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), #e8c97a, var(--gold));
+            border-radius: 1px;
+            margin: 4px 0 14px;
         }
-
         .btn{
-            width:100%;padding:14px;border:none;border-radius:14px;
-            font-size:15px;font-weight:600;cursor:pointer;transition:all 0.2s;
+            width:100%;padding:12px;border:none;border-radius:12px;
+            font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s;
         }
         .btn:active{transform:scale(0.97)}
-        .btn-pri{background:#1a1a1a;color:#fff}
-        .btn-pri:hover{background:#333}
-        .btn-gold{background:linear-gradient(135deg,#d4a853,#f59e0b);color:#fff}
-        .btn-gold:hover{opacity:0.9}
+        .btn-black{background:var(--black);color:#fff}
+        .btn-gold{background:linear-gradient(135deg,#c8963e,#d4a853);color:#fff}
         .btn-green{background:var(--green);color:#fff}
-        .btn-out{background:transparent;color:var(--text);border:2px solid var(--border);font-weight:600}
-        .btn-red{background:transparent;color:var(--red);border:2px solid var(--red)}
+        .btn-out{background:transparent;color:var(--text);border:1.5px solid var(--border)}
+        .btn-red{background:transparent;color:var(--red);border:1.5px solid var(--red)}
         .btn:disabled{opacity:0.4;cursor:not-allowed}
-        .btn-sm{width:auto;padding:8px 18px;font-size:13px;border-radius:10px}
-
+        .btn-sm{width:auto;padding:6px 14px;font-size:12px;border-radius:8px}
         .input{
-            width:100%;padding:14px;border:2px solid var(--border);
-            border-radius:14px;font-size:15px;margin-bottom:10px;font-family:inherit;
+            width:100%;padding:12px;border:1.5px solid var(--border);
+            border-radius:10px;font-size:14px;margin-bottom:8px;font-family:inherit;
             background:var(--input-bg);color:var(--text);transition:all 0.2s;
         }
-        .input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 4px rgba(212,168,83,0.1)}
-        .input::placeholder{color:var(--text2)}
-        textarea.input{min-height:100px;resize:vertical}
-        select.input{background:var(--input-bg);color:var(--text)}
-
-        .tabs{display:flex;gap:6px;margin-bottom:18px;background:var(--card);padding:5px;border-radius:16px;border:1px solid var(--border)}
+        .input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(200,150,62,0.08)}
+        .input::placeholder{color:#9ca3af}
+        textarea.input{min-height:90px;resize:vertical}
+        select.input{background:var(--input-bg);color:var(--text);appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%236b7280' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px}
+        .tabs{display:flex;gap:4px;margin-bottom:14px;background:var(--card);padding:4px;border-radius:12px;border:1px solid var(--border)}
         .tab{
-            flex:1;padding:11px;text-align:center;border-radius:12px;cursor:pointer;
-            font-weight:600;font-size:14px;border:none;background:transparent;color:var(--text2);
+            flex:1;padding:9px;text-align:center;border-radius:9px;cursor:pointer;
+            font-weight:600;font-size:13px;border:none;background:transparent;color:var(--text2);
         }
-        .tab.active{background:#1a1a1a;color:#fff}
-
-        .progress{display:flex;gap:4px;margin-bottom:18px}
-        .pdot{flex:1;height:4px;border-radius:2px;background:var(--border)}
+        .tab.active{background:var(--black);color:#fff}
+        .progress{display:flex;gap:3px;margin-bottom:14px}
+        .pdot{flex:1;height:3px;border-radius:2px;background:var(--border)}
         .pdot.done{background:var(--gold)}
         .pdot.active{background:var(--gold);animation:pulse 1s infinite}
         @keyframes pulse{50%{opacity:0.3}}
-
         .step-num{
-            width:32px;height:32px;background:#1a1a1a;color:#fff;
+            width:28px;height:28px;background:var(--black);color:#fff;
             border-radius:50%;display:inline-flex;align-items:center;
-            justify-content:center;font-weight:700;font-size:14px;margin-right:10px;
+            justify-content:center;font-weight:700;font-size:13px;margin-right:8px;
         }
-
         .output-box{
-            background:var(--output-bg);padding:18px;border-radius:14px;
-            white-space:pre-wrap;max-height:400px;overflow-y:auto;
-            font-size:14px;line-height:1.8;margin-top:12px;
+            background:var(--output-bg);padding:14px;border-radius:12px;
+            white-space:pre-wrap;max-height:380px;overflow-y:auto;
+            font-size:13px;line-height:1.7;margin-top:10px;
             border:1px solid var(--border);
         }
-
         .badge{
-            display:inline-block;padding:7px 16px;border-radius:20px;
-            font-size:13px;font-weight:600;margin:3px;cursor:pointer;
+            display:inline-block;padding:5px 12px;border-radius:16px;
+            font-size:12px;font-weight:600;margin:2px;cursor:pointer;
             background:var(--badge-bg);color:var(--badge-text);border:1px solid var(--border);
         }
         .badge:hover{border-color:var(--gold)}
-        .badge.sel{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
-
-        .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+        .badge.sel{background:var(--black);color:#fff;border-color:var(--black)}
+        .stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
         .stat{
             background:var(--card);border:1px solid var(--border);
-            border-radius:16px;padding:18px;text-align:center;
+            border-radius:14px;padding:16px;text-align:center;
         }
-        .stat-val{font-size:30px;font-weight:700;color:var(--gold)}
-        .stat-lbl{font-size:11px;color:var(--text2);margin-top:4px;font-weight:600;text-transform:uppercase;letter-spacing:1px}
-
+        .stat-val{font-size:26px;font-weight:700;color:var(--gold)}
+        .stat-lbl{font-size:10px;color:var(--text2);margin-top:2px;font-weight:600;text-transform:uppercase;letter-spacing:1px}
         .bottom-nav{
-            position:fixed;bottom:12px;left:50%;transform:translateX(-50%);
+            position:fixed;bottom:10px;left:50%;transform:translateX(-50%);
             background:var(--card);display:flex;border:1px solid var(--border);
-            border-radius:18px;padding:4px;z-index:100;width:calc(100% - 24px);
-            max-width:500px;box-shadow:var(--shadow);
+            border-radius:14px;padding:3px;z-index:100;width:calc(100% - 20px);
+            max-width:480px;box-shadow:var(--shadow);
         }
         .nav-i{
-            flex:1;text-align:center;padding:10px;cursor:pointer;
-            border-radius:14px;font-size:12px;font-weight:600;color:var(--text2);
+            flex:1;text-align:center;padding:8px;cursor:pointer;
+            border-radius:11px;font-size:11px;font-weight:600;color:var(--text2);
             border:none;background:none;
         }
-        .nav-i.active{background:#1a1a1a;color:#fff}
-
+        .nav-i.active{background:var(--black);color:#fff}
         .spinner{
-            width:36px;height:36px;border:3px solid var(--spinner-border);
+            width:32px;height:32px;border:2.5px solid var(--spinner-border);
             border-top-color:var(--gold);border-radius:50%;
-            animation:spin 0.7s linear infinite;margin:18px auto;
+            animation:spin 0.7s linear infinite;margin:14px auto;
         }
         @keyframes spin{to{transform:rotate(360deg)}}
-
         .toast{
-            position:fixed;bottom:90px;left:50%;transform:translateX(-50%);
-            background:#1a1a1a;color:#fff;padding:12px 24px;
-            border-radius:25px;font-size:14px;font-weight:600;z-index:200;
+            position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+            background:var(--black);color:#fff;padding:10px 20px;
+            border-radius:20px;font-size:13px;font-weight:600;z-index:200;
             animation:slideUp 0.3s;
         }
-        @keyframes slideUp{from{opacity:0;transform:translateX(-50%) translateY(15px)}}
-
+        @keyframes slideUp{from{opacity:0;transform:translateX(-50%) translateY(12px)}}
         .hidden{display:none!important}
         .center{text-align:center}
-        .mt1{margin-top:8px}.mt2{margin-top:16px}.mb1{margin-bottom:8px}
-        .flex{display:flex;gap:8px}.flex-btwn{display:flex;justify-content:space-between;align-items:center}
-        .label-text{font-weight:700;margin-bottom:6px;display:block;font-size:14px;color:var(--text)}
-        .text2{color:var(--text2);font-size:13px}
-        .logo-text{font-size:40px;margin-bottom:6px}
-        .error-text{color:var(--red);text-align:center;font-size:13px;margin-top:8px}
-
+        .mt1{margin-top:6px}.mt2{margin-top:12px}.mb1{margin-bottom:6px}
+        .flex{display:flex;gap:6px}.flex-btwn{display:flex;justify-content:space-between;align-items:center}
+        .label-text{font-weight:700;margin-bottom:4px;display:block;font-size:13px;color:var(--text)}
+        .text2{color:var(--text2);font-size:12px}
+        .logo-text{font-size:36px;margin-bottom:4px}
+        .error-text{color:var(--red);text-align:center;font-size:12px;margin-top:6px}
         .auth-card{
             background:var(--card);border:1px solid var(--border);
-            border-radius:20px;padding:28px 22px;box-shadow:var(--shadow);
+            border-radius:18px;padding:24px 20px;box-shadow:var(--shadow);
         }
-        .auth-card h2{font-size:22px;font-weight:700;margin-bottom:4px;color:var(--text)}
+        .auth-card h2{font-size:20px;font-weight:700;margin-bottom:2px;color:var(--text)}
         .auth-link{color:var(--gold);font-weight:700;text-decoration:none}
     </style>
 </head>
@@ -250,200 +230,376 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
     <script>
-        var FC={apiKey:"AIzaSyCVonj30X4c-WaMzqngv5EuKv3YtDzqrxk",authDomain:"promptflow-ai-7de15.firebaseapp.com",projectId:"promptflow-ai-7de15",storageBucket:"promptflow-ai-7de15.firebasestorage.app",messagingSenderId:"681657211558",appId:"1:681657211558:web:e25e5be6d347f3c1f2f267"};
-        var GK="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";
-        var GM="llama-3.3-70b-versatile";
+        // ========== CONFIGURATION ==========
+        var FC = {
+            apiKey: "AIzaSyCVonj30X4c-WaMzqngv5EuKv3YtDzqrxk",
+            authDomain: "promptflow-ai-7de15.firebaseapp.com",
+            projectId: "promptflow-ai-7de15",
+            storageBucket: "promptflow-ai-7de15.firebasestorage.app",
+            messagingSenderId: "681657211558",
+            appId: "1:681657211558:web:e25e5be6d347f3c1f2f267"
+        };
+        var XAI_KEY = "xai-qF4XKjxt9ldBoU26NTNcsKGvoRwC2hEEcdpxPXOrM0uIUTak4hiyuBbUN64a9iLYR7s12HjXngQpQTxC";
+        var AI_MODEL = "grok-2-1212";
+
+        // ========== INITIALIZE FIREBASE ==========
         firebase.initializeApp(FC);
-        var auth=firebase.auth(),db=firebase.firestore();
-        var U=null,page='home';
-        var flow={goal:'',cat:'',aud:'',tone:'Professional',extra:''};
-        var reconfirmAnalysis='',reconfirmHistory=[],reconfirmStep=0;
+        var auth = firebase.auth();
+        var db = firebase.firestore();
 
-        // Theme
-        var savedTheme=localStorage.getItem('theme')||'light';
-        document.documentElement.setAttribute('data-theme',savedTheme);
-        document.getElementById('themeBtn').textContent=savedTheme==='dark'?'☀️':'🌙';
+        // ========== STATE ==========
+        var U = null;
+        var page = 'home';
+        var flow = { goal: '', cat: '', aud: '', tone: 'Professional', extra: '' };
+        var reconfirmAnalysis = '';
+        var reconfirmHistory = [];
+        var reconfirmStep = 0;
 
-        function toggleTheme(){
-            var current=document.documentElement.getAttribute('data-theme');
-            var next=current==='dark'?'light':'dark';
-            document.documentElement.setAttribute('data-theme',next);
-            localStorage.setItem('theme',next);
-            document.getElementById('themeBtn').textContent=next==='dark'?'☀️':'🌙';
+        // ========== THEME ==========
+        var savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        document.getElementById('themeBtn').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+        function toggleTheme() {
+            var current = document.documentElement.getAttribute('data-theme');
+            var next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            document.getElementById('themeBtn').textContent = next === 'dark' ? '☀️' : '🌙';
         }
 
-        function R(){
-            var a=document.getElementById('app'),n=document.getElementById('nav');
-            if(!U){a.innerHTML=AuthUI();n.classList.add('hidden');}
-            else{n.classList.remove('hidden');if(page==='home')a.innerHTML=HomeUI();else if(page==='prompt')a.innerHTML=PromptUI();else if(page==='history'){a.innerHTML=HistoryUI();loadHistory();}else if(page==='profile')a.innerHTML=ProfileUI();}
+        // ========== RENDER ==========
+        function R() {
+            var a = document.getElementById('app');
+            var n = document.getElementById('nav');
+            if (!U) {
+                a.innerHTML = AuthUI();
+                n.classList.add('hidden');
+            } else {
+                n.classList.remove('hidden');
+                if (page === 'home') a.innerHTML = HomeUI();
+                else if (page === 'prompt') a.innerHTML = PromptUI();
+                else if (page === 'history') { a.innerHTML = HistoryUI(); loadHistory(); }
+                else if (page === 'profile') a.innerHTML = ProfileUI();
+            }
         }
 
-        function AuthUI(){
-            var h='<div class="center" style="padding:50px 0 24px"><div class="logo-text">🧠</div><h1 style="font-size:28px;font-weight:800;">PromptFlow AI</h1><p class="text2" style="margin-top:6px">Smart Problem Detector + Reconfirmation</p></div><div class="gold-line"></div>';
-            h+='<div class="auth-card" id="loginBox"><h2>Welcome Back</h2><p class="text2 mb1">Sign in to continue</p><input id="le" class="input" type="email" placeholder="Email address"><input id="lp" class="input" type="password" placeholder="Password"><button onclick="L()" class="btn btn-pri">Sign In</button><p class="center mt1 text2">New here? <a href="#" onclick="TA()" class="auth-link">Create Account</a></p></div>';
-            h+='<div class="auth-card hidden" id="signupBox"><h2>Create Account</h2><p class="text2 mb1">Free forever, no limits</p><input id="sn" class="input" placeholder="Full Name"><input id="se" class="input" type="email" placeholder="Email"><input id="sp" class="input" type="password" placeholder="Password (6+ chars)"><button onclick="S()" class="btn btn-gold">Create Free Account</button><p class="center mt1 text2">Already registered? <a href="#" onclick="TA()" class="auth-link">Sign In</a></p></div>';
-            h+='<p id="ae" class="error-text"></p>';
+        // ========== AUTH UI ==========
+        function AuthUI() {
+            var h = '';
+            h += '<div class="center" style="padding:40px 0 20px">';
+            h += '<div class="logo-text">🧠</div>';
+            h += '<h1 style="font-size:26px;font-weight:800;">PromptFlow AI</h1>';
+            h += '<p class="text2" style="margin-top:4px">Smart Problem Detector + Reconfirmation</p>';
+            h += '</div><div class="gold-line"></div>';
+            
+            h += '<div class="auth-card" id="loginBox">';
+            h += '<h2>Welcome Back</h2><p class="text2 mb1">Sign in to continue</p>';
+            h += '<input id="le" class="input" type="email" placeholder="Email address">';
+            h += '<input id="lp" class="input" type="password" placeholder="Password">';
+            h += '<button onclick="L()" class="btn btn-black">Sign In</button>';
+            h += '<p class="center mt1 text2">New here? <a href="#" onclick="TA()" class="auth-link">Create Account</a></p>';
+            h += '</div>';
+            
+            h += '<div class="auth-card hidden" id="signupBox">';
+            h += '<h2>Create Account</h2><p class="text2 mb1">Free forever, no limits</p>';
+            h += '<input id="sn" class="input" placeholder="Full Name">';
+            h += '<input id="se" class="input" type="email" placeholder="Email">';
+            h += '<input id="sp" class="input" type="password" placeholder="Password (6+ chars)">';
+            h += '<button onclick="S()" class="btn btn-gold">Create Free Account</button>';
+            h += '<p class="center mt1 text2">Already registered? <a href="#" onclick="TA()" class="auth-link">Sign In</a></p>';
+            h += '</div>';
+            
+            h += '<p id="ae" class="error-text"></p>';
             return h;
         }
-        function TA(){document.getElementById('loginBox').classList.toggle('hidden');document.getElementById('signupBox').classList.toggle('hidden');document.getElementById('ae').textContent='';}
-        function L(){var e=document.getElementById('le').value,p=document.getElementById('lp').value;auth.signInWithEmailAndPassword(e,p).catch(function(x){E(x.message);});}
-        function S(){var n=document.getElementById('sn').value,e=document.getElementById('se').value,p=document.getElementById('sp').value;if(!n||!e||!p){E('All fields required');return;}if(p.length<6){E('Password 6+ chars');return;}auth.createUserWithEmailAndPassword(e,p).then(function(r){return db.collection('users').doc(r.user.uid).set({uid:r.user.uid,email:e,name:n,role:'user',createdAt:new Date().toISOString(),promptsUsed:0});}).catch(function(x){E(x.message);});}
-        function E(m){document.getElementById('ae').textContent=m;}
 
-        function HomeUI(){
-            var h='<div class="header"><div class="flex-btwn"><div><h1>Hello, '+(U.displayName||U.email.split('@')[0]||'User')+' 👋</h1><p class="sub">Your Personal AI Advisor</p></div><button class="logout-btn" onclick="auth.signOut()">Logout</button></div></div>';
-            h+='<div class="stats"><div class="stat"><div class="stat-val">'+(U.promptsUsed||0)+'</div><div class="stat-lbl">Solved</div></div><div class="stat"><div class="stat-val">Free</div><div class="stat-lbl">Plan</div></div></div>';
-            h+='<div class="card center"><div style="font-size:44px;margin-bottom:8px">🚀</div><h3 style="font-size:18px;margin-bottom:6px;">Ready to solve problems?</h3><p class="text2 mb1">AI understands → Confirms → Delivers</p><button onclick="SP(\'prompt\')" class="btn btn-gold">Start Smart Flow</button></div>';
+        function TA() {
+            document.getElementById('loginBox').classList.toggle('hidden');
+            document.getElementById('signupBox').classList.toggle('hidden');
+            document.getElementById('ae').textContent = '';
+        }
+
+        function L() {
+            var e = document.getElementById('le').value;
+            var p = document.getElementById('lp').value;
+            if (!e || !p) { E('Please fill all fields'); return; }
+            auth.signInWithEmailAndPassword(e, p).catch(function(x) { E(x.message); });
+        }
+
+        function S() {
+            var n = document.getElementById('sn').value;
+            var e = document.getElementById('se').value;
+            var p = document.getElementById('sp').value;
+            if (!n || !e || !p) { E('All fields required'); return; }
+            if (p.length < 6) { E('Password must be 6+ characters'); return; }
+            auth.createUserWithEmailAndPassword(e, p).then(function(r) {
+                return db.collection('users').doc(r.user.uid).set({
+                    uid: r.user.uid,
+                    email: e,
+                    name: n,
+                    role: 'user',
+                    createdAt: new Date().toISOString(),
+                    promptsUsed: 0
+                });
+            }).catch(function(x) { E(x.message); });
+        }
+
+        function E(m) { document.getElementById('ae').textContent = m; }
+
+        // ========== HOME ==========
+        function HomeUI() {
+            var name = (U.displayName || U.email.split('@')[0] || 'User');
+            var h = '';
+            h += '<div class="header"><div class="flex-btwn">';
+            h += '<div><h1>Hello, ' + name + ' 👋</h1><p class="sub">Your Personal AI Advisor</p></div>';
+            h += '<button class="logout-btn" onclick="auth.signOut()">Logout</button>';
+            h += '</div></div>';
+            
+            h += '<div class="stats">';
+            h += '<div class="stat"><div class="stat-val">' + (U.promptsUsed || 0) + '</div><div class="stat-lbl">Solved</div></div>';
+            h += '<div class="stat"><div class="stat-val">Free</div><div class="stat-lbl">Plan</div></div>';
+            h += '</div>';
+            
+            h += '<div class="card center">';
+            h += '<div style="font-size:40px;margin-bottom:6px">🚀</div>';
+            h += '<h3 style="font-size:17px;margin-bottom:4px;">Ready to solve problems?</h3>';
+            h += '<p class="text2 mb1">AI understands → Confirms → Delivers</p>';
+            h += '<button onclick="SP(\'prompt\')" class="btn btn-gold">Start Smart Flow</button>';
+            h += '</div>';
             return h;
         }
 
-        function PromptUI(){
-            var h='<h2 style="font-size:20px;font-weight:700;margin-bottom:14px;">Smart Problem Detector</h2>';
-            h+='<div class="tabs"><button class="tab active" onclick="ST(\'simple\')">⚡ Quick</button><button class="tab" onclick="ST(\'master\')">🔬 Master Flow</button></div>';
-            h+='<div id="simplePanel"><div class="card"><textarea id="si" class="input" placeholder="Describe your problem in detail...&#10;&#10;e.g., My D2C brand sales dropped 40% in 3 months..."></textarea><button onclick="QS()" id="sB" class="btn btn-pri">Analyze & Generate</button><div id="sO" class="output-box hidden"></div></div></div>';
-            h+='<div id="masterPanel" class="hidden">'+MS1()+'</div>';
-            h+='<div id="loadD" class="center hidden"><div class="spinner"></div><p class="text2">Deep analysis in progress...</p></div>';
+        // ========== PROMPT PAGE ==========
+        function PromptUI() {
+            var h = '<h2 style="font-size:18px;font-weight:700;margin-bottom:12px;">Smart Problem Detector</h2>';
+            h += '<div class="tabs"><button class="tab active" onclick="ST(\'simple\')">⚡ Quick</button><button class="tab" onclick="ST(\'master\')">🔬 Master Flow</button></div>';
+            h += '<div id="simplePanel"><div class="card"><textarea id="si" class="input" placeholder="Describe your problem in detail...&#10;&#10;e.g., My D2C brand sales dropped 40% in 3 months..."></textarea><button onclick="QS()" id="sB" class="btn btn-black">Analyze & Generate</button><div id="sO" class="output-box hidden"></div></div></div>';
+            h += '<div id="masterPanel" class="hidden">' + MS1() + '</div>';
+            h += '<div id="loadD" class="center hidden"><div class="spinner"></div><p class="text2">Deep analysis in progress...</p></div>';
             return h;
         }
-        function ST(t){
-            var tabs=document.querySelectorAll('.tab');
-            for(var i=0;i<tabs.length;i++){tabs[i].classList.remove('active');}
+
+        function ST(t) {
+            var tabs = document.querySelectorAll('.tab');
+            for (var i = 0; i < tabs.length; i++) { tabs[i].classList.remove('active'); }
             event.target.classList.add('active');
-            document.getElementById('simplePanel').classList.toggle('hidden',t!=='simple');
-            document.getElementById('masterPanel').classList.toggle('hidden',t!=='master');
-            reconfirmStep=0;reconfirmAnalysis='';reconfirmHistory=[];
+            document.getElementById('simplePanel').classList.toggle('hidden', t !== 'simple');
+            document.getElementById('masterPanel').classList.toggle('hidden', t !== 'master');
+            reconfirmStep = 0;
+            reconfirmAnalysis = '';
+            reconfirmHistory = [];
         }
 
-        async function QS(){
-            var t=document.getElementById('si').value;if(!t)return;
-            document.getElementById('sB').disabled=true;document.getElementById('loadD').classList.remove('hidden');
-            var out=await G("You are an expert consultant. Provide a DETAILED, structured solution for: "+t+"\nInclude: analysis, step-by-step plan, specific advice, and actionable next steps. Be thorough (500+ words).");
-            var el=document.getElementById('sO');el.textContent=out;el.classList.remove('hidden');
-            document.getElementById('loadD').classList.add('hidden');document.getElementById('sB').disabled=false;
-            saveH(t,out,'simple');
+        // ========== SIMPLE MODE ==========
+        async function QS() {
+            var t = document.getElementById('si').value;
+            if (!t) return;
+            document.getElementById('sB').disabled = true;
+            document.getElementById('loadD').classList.remove('hidden');
+            var out = await AI("You are an expert consultant. Provide a DETAILED, structured solution for: " + t + "\nInclude: deep analysis, step-by-step plan, specific advice, and actionable next steps. Be thorough (500+ words). Use clear headings and bullet points.");
+            var el = document.getElementById('sO');
+            el.textContent = out;
+            el.classList.remove('hidden');
+            document.getElementById('loadD').classList.add('hidden');
+            document.getElementById('sB').disabled = false;
+            saveH(t, out, 'simple');
         }
 
-        function MS1(){
-            return '<div class="card"><div class="progress"><div class="pdot active"></div><div class="pdot"></div><div class="pdot"></div><div class="pdot"></div></div><div class="label-text"><span class="step-num">1</span> Describe Your Problem</div><textarea id="mg" class="input" placeholder="Be as detailed as possible... The more context, the better the AI analysis."></textarea><button onclick="MS2()" class="btn btn-pri mt1">AI Analysis →</button></div>';
+        // ========== MASTER FLOW - STEP 1 ==========
+        function MS1() {
+            return '<div class="card"><div class="progress"><div class="pdot active"></div><div class="pdot"></div><div class="pdot"></div><div class="pdot"></div></div><div class="label-text"><span class="step-num">1</span> Describe Your Problem</div><textarea id="mg" class="input" placeholder="Be as detailed as possible... The more context, the better the AI analysis."></textarea><button onclick="MS2()" class="btn btn-black mt1">AI Analysis →</button></div>';
         }
-        function MS2(){
-            flow.goal=document.getElementById('mg').value;if(!flow.goal)return;
-            var h='<div class="card"><div class="progress"><div class="pdot done"></div><div class="pdot active"></div><div class="pdot"></div><div class="pdot"></div></div><div class="label-text"><span class="step-num">2</span> Category & Audience</div><p class="text2 mb1">Select best category:</p><div id="cats">';
-            var cats=['Marketing','Content','Tech','Business','Creative','Education','Social','Personal'];
-            for(var i=0;i<cats.length;i++){h+='<span class="badge" onclick="SC(\''+cats[i]+'\')">'+cats[i]+'</span>';}
-            h+='</div><input id="ma" class="input mt2" placeholder="Target Audience? e.g., Working professionals 25-40"><button onclick="MS3()" class="btn btn-pri mt1">Next →</button></div>';
-            document.getElementById('masterPanel').innerHTML=h;
+
+        function MS2() {
+            flow.goal = document.getElementById('mg').value;
+            if (!flow.goal) return;
+            var h = '<div class="card"><div class="progress"><div class="pdot done"></div><div class="pdot active"></div><div class="pdot"></div><div class="pdot"></div></div><div class="label-text"><span class="step-num">2</span> Category & Audience</div><p class="text2 mb1">Select best category:</p><div id="cats">';
+            var cats = ['Marketing', 'Content', 'Tech', 'Business', 'Creative', 'Education', 'Social', 'Personal'];
+            for (var i = 0; i < cats.length; i++) {
+                h += '<span class="badge" onclick="SC(\'' + cats[i] + '\')">' + cats[i] + '</span>';
+            }
+            h += '</div><input id="ma" class="input mt2" placeholder="Target Audience? e.g., Working professionals 25-40">';
+            h += '<button onclick="MS3()" class="btn btn-black mt1">Next →</button></div>';
+            document.getElementById('masterPanel').innerHTML = h;
         }
-        function SC(c){flow.cat=c;var b=document.querySelectorAll('#cats .badge');for(var i=0;i<b.length;i++){b[i].classList.remove('sel');}event.target.classList.add('sel');}
-        function MS3(){
-            flow.aud=document.getElementById('ma').value;
-            var h='<div class="card"><div class="progress"><div class="pdot done"></div><div class="pdot done"></div><div class="pdot active"></div><div class="pdot"></div></div><div class="label-text"><span class="step-num">3</span> Tone & Requirements</div><select id="mt" class="input"><option>Professional</option><option>Friendly</option><option>Inspirational</option><option>Formal</option></select><textarea id="me" class="input mt1" placeholder="Extra requirements? e.g., Include SWOT, 90-day plan..."></textarea><button onclick="MS4()" class="btn btn-gold mt1">✨ Generate Analysis</button></div>';
-            document.getElementById('masterPanel').innerHTML=h;
+
+        function SC(c) {
+            flow.cat = c;
+            var b = document.querySelectorAll('#cats .badge');
+            for (var i = 0; i < b.length; i++) { b[i].classList.remove('sel'); }
+            event.target.classList.add('sel');
         }
-        async function MS4(){
-            flow.tone=document.getElementById('mt').value;flow.extra=document.getElementById('me').value;
-            document.getElementById('masterPanel').innerHTML='<div class="card center"><div class="spinner"></div><p class="text2">Analyzing deeply...</p></div>';
-            reconfirmAnalysis=await G("Problem: \""+flow.goal+"\"\nCategory: "+(flow.cat||'General')+"\nAudience: "+(flow.aud||'General')+"\nTone: "+flow.tone+"\nRequirements: "+(flow.extra||'None')+"\n\nProvide a DEEP analysis (200+ words). Then ask: Is this analysis correct?");
-            var h='<div class="card"><div class="progress"><div class="pdot done"></div><div class="pdot done"></div><div class="pdot done"></div><div class="pdot active"></div></div><div class="label-text"><span class="step-num">4</span> AI Analysis - Confirm?</div><div class="output-box">'+reconfirmAnalysis+'</div><p class="label-text mt2">Is this analysis correct?</p><div class="flex"><button onclick="RC(\'yes\')" class="btn btn-green">✅ Yes, Perfect</button><button onclick="RC(\'no\')" class="btn btn-red">❌ No, Fix It</button></div></div>';
-            document.getElementById('masterPanel').innerHTML=h;
+
+        function MS3() {
+            flow.aud = document.getElementById('ma').value;
+            var h = '<div class="card"><div class="progress"><div class="pdot done"></div><div class="pdot done"></div><div class="pdot active"></div><div class="pdot"></div></div><div class="label-text"><span class="step-num">3</span> Tone & Requirements</div><select id="mt" class="input"><option>Professional</option><option>Friendly</option><option>Inspirational</option><option>Formal</option></select><textarea id="me" class="input mt1" placeholder="Extra requirements? e.g., Include SWOT, 90-day plan..."></textarea><button onclick="MS4()" class="btn btn-gold mt1">✨ Generate Analysis</button></div>';
+            document.getElementById('masterPanel').innerHTML = h;
         }
-        async function RC(ans){
-            if(ans==='yes'){
-                document.getElementById('masterPanel').innerHTML='<div class="card center"><div class="spinner"></div><p class="text2">Building Master Prompt...</p></div>';
-                var o=await G("Create an EXPERT-LEVEL MASTER PROMPT for:\nProblem: \""+flow.goal+"\"\nCategory: "+(flow.cat||'General')+"\nAudience: "+(flow.aud||'General')+"\nTone: "+flow.tone+"\nAnalysis: \""+reconfirmAnalysis+"\"\n\nInclude: expert role, clear context, numbered deliverables, format requirements. Ready to paste into any AI tool.");
-                var h='<div class="card"><div class="flex-btwn mb1"><span class="label-text">✅ Master Prompt Ready</span><span class="badge sel">Confirmed</span></div><div class="output-box" id="finalOutput">'+o+'</div><div class="flex mt2"><button onclick="CP()" class="btn btn-out">📋 Copy</button><button onclick="page=\'prompt\';reconfirmStep=0;R()" class="btn btn-pri">🔄 New Problem</button></div></div>';
-                document.getElementById('masterPanel').innerHTML=h;saveH(flow.goal,o,'master');
-            }else{
-                document.getElementById('masterPanel').innerHTML='<div class="card"><div class="label-text">What was wrong?</div><textarea id="rcf" class="input" placeholder="e.g., Real problem is lead quality, not pricing..."></textarea><button onclick="RCR()" class="btn btn-pri mt1">Re-analyze</button></div>';
+
+        async function MS4() {
+            flow.tone = document.getElementById('mt').value;
+            flow.extra = document.getElementById('me').value;
+            document.getElementById('masterPanel').innerHTML = '<div class="card center"><div class="spinner"></div><p class="text2">Analyzing deeply...</p></div>';
+            var promptText = "Problem: \"" + flow.goal + "\"\nCategory: " + (flow.cat || 'General') + "\nAudience: " + (flow.aud || 'General') + "\nTone: " + flow.tone + "\nRequirements: " + (flow.extra || 'None') + "\n\nProvide a DEEP analysis (200+ words): What is the real problem? Root causes? Hidden factors? Then ask: Is this analysis correct?";
+            reconfirmAnalysis = await AI(promptText);
+            var h = '<div class="card"><div class="progress"><div class="pdot done"></div><div class="pdot done"></div><div class="pdot done"></div><div class="pdot active"></div></div><div class="label-text"><span class="step-num">4</span> AI Analysis - Confirm?</div><div class="output-box">' + reconfirmAnalysis + '</div><p class="label-text mt2">Is this analysis correct?</p><div class="flex"><button onclick="RC(\'yes\')" class="btn btn-green">✅ Yes, Perfect</button><button onclick="RC(\'no\')" class="btn btn-red">❌ No, Fix It</button></div></div>';
+            document.getElementById('masterPanel').innerHTML = h;
+        }
+
+        // ========== RECONFIRMATION ==========
+        async function RC(ans) {
+            if (ans === 'yes') {
+                document.getElementById('masterPanel').innerHTML = '<div class="card center"><div class="spinner"></div><p class="text2">Building Master Prompt...</p></div>';
+                var promptText = "Create an EXPERT-LEVEL MASTER PROMPT for:\nProblem: \"" + flow.goal + "\"\nCategory: " + (flow.cat || 'General') + "\nAudience: " + (flow.aud || 'General') + "\nTone: " + flow.tone + "\nAnalysis: \"" + reconfirmAnalysis + "\"\n\nInclude: expert role, clear context, numbered deliverables, format requirements. Ready to paste into any AI tool.";
+                var o = await AI(promptText);
+                var h = '<div class="card"><div class="flex-btwn mb1"><span class="label-text">✅ Master Prompt Ready</span><span class="badge sel">Confirmed</span></div><div class="output-box" id="finalOutput">' + o + '</div><div class="flex mt2"><button onclick="CP()" class="btn btn-out">📋 Copy</button><button onclick="page=\'prompt\';reconfirmStep=0;R()" class="btn btn-black">🔄 New Problem</button></div></div>';
+                document.getElementById('masterPanel').innerHTML = h;
+                saveH(flow.goal, o, 'master');
+            } else {
+                document.getElementById('masterPanel').innerHTML = '<div class="card"><div class="label-text">What was wrong?</div><textarea id="rcf" class="input" placeholder="e.g., Real problem is lead quality, not pricing..."></textarea><button onclick="RCR()" class="btn btn-black mt1">Re-analyze</button></div>';
             }
         }
-        async function RCR(){
-            var f=document.getElementById('rcf').value;if(!f)return;reconfirmHistory.push(f);
-            document.getElementById('masterPanel').innerHTML='<div class="card center"><div class="spinner"></div><p class="text2">Re-analyzing...</p></div>';
-            reconfirmAnalysis=await G("Original: \""+flow.goal+"\"\nOld Analysis: \""+reconfirmAnalysis+"\"\nFeedback: \""+f+"\"\n\nProvide FRESH deep analysis incorporating all feedback.");
-            document.getElementById('masterPanel').innerHTML='<div class="card"><div class="label-text"><span class="step-num">4</span> New Analysis - Correct?</div><div class="output-box">'+reconfirmAnalysis+'</div><div class="flex mt2"><button onclick="RC(\'yes\')" class="btn btn-green">✅ Yes!</button><button onclick="RC(\'no\')" class="btn btn-red">❌ Still No</button></div></div>';
+
+        async function RCR() {
+            var f = document.getElementById('rcf').value;
+            if (!f) return;
+            reconfirmHistory.push(f);
+            document.getElementById('masterPanel').innerHTML = '<div class="card center"><div class="spinner"></div><p class="text2">Re-analyzing...</p></div>';
+            var promptText = "Original: \"" + flow.goal + "\"\nOld Analysis: \"" + reconfirmAnalysis + "\"\nFeedback: \"" + f + "\"\n\nProvide FRESH deep analysis incorporating all feedback.";
+            reconfirmAnalysis = await AI(promptText);
+            document.getElementById('masterPanel').innerHTML = '<div class="card"><div class="label-text"><span class="step-num">4</span> New Analysis - Correct?</div><div class="output-box">' + reconfirmAnalysis + '</div><div class="flex mt2"><button onclick="RC(\'yes\')" class="btn btn-green">✅ Yes!</button><button onclick="RC(\'no\')" class="btn btn-red">❌ Still No</button></div></div>';
         }
 
-        function HistoryUI(){return '<h2 style="font-size:20px;font-weight:700;margin-bottom:14px;">History</h2><div id="hl"><div class="card center"><div class="spinner"></div><p class="text2">Loading history...</p></div></div>';}
-        async function loadHistory(){
-            var l=document.getElementById('hl');
-            if(!U){l.innerHTML='<div class="card center"><p class="text2">Please login first</p></div>';return;}
-            try{
-                var s=await db.collection('prompts').where('userId','==',U.uid).orderBy('createdAt','desc').limit(30).get();
-                var docs=s.docs;
-                if(!docs||docs.length===0){l.innerHTML='<div class="card center"><p class="text2">No problems solved yet. Start solving!</p></div>';return;}
-                var h='';
-                for(var i=0;i<docs.length;i++){
-                    var x=docs[i].data();
-                    var d=new Date(x.createdAt).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
-                    h+='<div class="card"><div class="flex-btwn"><span class="badge" style="background:#1a1a1a;color:#fff;border:none">'+(x.type||'simple')+'</span><span class="text2">'+d+'</span></div><p class="mt1" style="font-size:14px">'+(x.prompt||'No prompt').substring(0,120)+'...</p></div>';
+        // ========== HISTORY ==========
+        function HistoryUI() {
+            return '<h2 style="font-size:18px;font-weight:700;margin-bottom:12px;">History</h2><div id="hl"><div class="card center"><div class="spinner"></div><p class="text2">Loading history...</p></div></div>';
+        }
+
+        async function loadHistory() {
+            var l = document.getElementById('hl');
+            if (!U) { l.innerHTML = '<div class="card center"><p class="text2">Please login first</p></div>'; return; }
+            try {
+                var s = await db.collection('prompts').where('userId', '==', U.uid).orderBy('createdAt', 'desc').limit(30).get();
+                var docs = s.docs;
+                if (!docs || docs.length === 0) {
+                    l.innerHTML = '<div class="card center"><p class="text2">No problems solved yet. Start solving!</p></div>';
+                    return;
                 }
-                l.innerHTML=h;
-            }catch(e){
-                l.innerHTML='<div class="card center"><p class="text2">Error loading history: '+e.message+'</p></div>';
+                var h = '';
+                for (var i = 0; i < docs.length; i++) {
+                    var x = docs[i].data();
+                    var d = new Date(x.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+                    h += '<div class="card"><div class="flex-btwn"><span class="badge" style="background:var(--black);color:#fff;border:none">' + (x.type || 'simple') + '</span><span class="text2">' + d + '</span></div><p class="mt1" style="font-size:13px">' + (x.prompt || 'No prompt').substring(0, 120) + '...</p></div>';
+                }
+                l.innerHTML = h;
+            } catch (e) {
+                l.innerHTML = '<div class="card center"><p class="text2">Error: ' + e.message + '</p></div>';
             }
         }
-        async function saveH(p,o,t){
-            if(!U)return;
-            try{
-                await db.collection('prompts').add({userId:U.uid,prompt:p,output:o,type:t,createdAt:new Date().toISOString()});
-                var userRef=db.collection('users').doc(U.uid);
-                var doc=await userRef.get();
-                if(doc.exists){
-                    var current=doc.data().promptsUsed||0;
-                    await userRef.update({promptsUsed:current+1});
+
+        async function saveH(p, o, t) {
+            if (!U) return;
+            try {
+                await db.collection('prompts').add({
+                    userId: U.uid,
+                    prompt: p,
+                    output: o,
+                    type: t,
+                    createdAt: new Date().toISOString()
+                });
+                var userRef = db.collection('users').doc(U.uid);
+                var doc = await userRef.get();
+                if (doc.exists) {
+                    var current = doc.data().promptsUsed || 0;
+                    await userRef.update({ promptsUsed: current + 1 });
                 }
-            }catch(e){console.log('Save error:',e);}
+            } catch (e) { console.log('Save error:', e); }
         }
 
-        function ProfileUI(){
-            var h='<h2 style="font-size:20px;font-weight:700;margin-bottom:14px;">Profile</h2>';
-            h+='<div class="card"><p class="text2">Name</p><p style="font-weight:700;font-size:16px">'+(U.displayName||'N/A')+'</p></div>';
-            h+='<div class="card"><p class="text2">Email</p><p style="font-weight:700;font-size:16px">'+U.email+'</p></div>';
-            h+='<div class="card"><p class="text2">Plan</p><p style="font-weight:700;font-size:16px;color:var(--gold)">Free Forever</p></div>';
-            h+='<button onclick="auth.signOut()" class="btn btn-red mt2">Sign Out</button>';
+        // ========== PROFILE ==========
+        function ProfileUI() {
+            var h = '<h2 style="font-size:18px;font-weight:700;margin-bottom:12px;">Profile</h2>';
+            h += '<div class="card"><p class="text2">Name</p><p style="font-weight:700;font-size:15px">' + (U.displayName || 'N/A') + '</p></div>';
+            h += '<div class="card"><p class="text2">Email</p><p style="font-weight:700;font-size:15px">' + U.email + '</p></div>';
+            h += '<div class="card"><p class="text2">Plan</p><p style="font-weight:700;font-size:15px;color:var(--gold)">Free Forever</p></div>';
+            h += '<button onclick="auth.signOut()" class="btn btn-red mt2">Sign Out</button>';
             return h;
         }
 
-        async function G(p){
-            try{
-                var r=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+GK},body:JSON.stringify({model:GM,messages:[{role:'user',content:p}],temperature:0.8,max_tokens:4000})});
-                var d=await r.json();
-                if(d.error)return 'Error: '+d.error.message;
-                return d.choices?.[0]?.message?.content||'No response';
-            }catch(e){return 'Network Error: '+e.message;}
+        // ========== XAI API CALL ==========
+        async function AI(p) {
+            try {
+                var r = await fetch('https://api.x.ai/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + XAI_KEY
+                    },
+                    body: JSON.stringify({
+                        model: AI_MODEL,
+                        messages: [{ role: 'user', content: p }],
+                        temperature: 0.8,
+                        max_tokens: 4000
+                    })
+                });
+                var d = await r.json();
+                if (d.error) { return 'API Error: ' + d.error.message; }
+                if (d.choices && d.choices[0] && d.choices[0].message) {
+                    return d.choices[0].message.content;
+                }
+                return 'No response from AI';
+            } catch (e) {
+                return 'Network Error: ' + e.message;
+            }
         }
 
-        function CP(){
-            var t=document.getElementById('finalOutput')?.textContent||document.querySelector('.output-box')?.textContent||'';
-            navigator.clipboard.writeText(t).then(function(){var x=document.createElement('div');x.className='toast';x.textContent='Copied! ✅';document.body.appendChild(x);setTimeout(function(){x.remove();},2000);});
+        // ========== COPY ==========
+        function CP() {
+            var t = document.getElementById('finalOutput') ? document.getElementById('finalOutput').textContent : '';
+            if (!t) {
+                var outBox = document.querySelector('.output-box');
+                if (outBox) t = outBox.textContent;
+            }
+            navigator.clipboard.writeText(t).then(function() {
+                var x = document.createElement('div');
+                x.className = 'toast';
+                x.textContent = 'Copied! ✅';
+                document.body.appendChild(x);
+                setTimeout(function() { x.remove(); }, 2000);
+            });
         }
 
-        function SP(p){
-            page=p;
-            var navItems=document.querySelectorAll('.nav-i');
-            for(var i=0;i<navItems.length;i++){navItems[i].classList.remove('active');}
-            var el=document.querySelector('[data-p="'+p+'"]');
-            if(el)el.classList.add('active');
+        // ========== NAVIGATION ==========
+        function SP(p) {
+            page = p;
+            var navItems = document.querySelectorAll('.nav-i');
+            for (var i = 0; i < navItems.length; i++) { navItems[i].classList.remove('active'); }
+            var el = document.querySelector('[data-p="' + p + '"]');
+            if (el) el.classList.add('active');
             R();
         }
 
-        auth.onAuthStateChanged(async function(u){
-            U=u;
-            if(u){
-                var d=await db.collection('users').doc(u.uid).get();
-                if(d.exists){
-                    var du=d.data();
-                    U.displayName=du.name;
-                    U.promptsUsed=du.promptsUsed;
-                }
+        // ========== AUTH STATE ==========
+        auth.onAuthStateChanged(async function(u) {
+            U = u;
+            if (u) {
+                try {
+                    var d = await db.collection('users').doc(u.uid).get();
+                    if (d.exists) {
+                        var du = d.data();
+                        U.displayName = du.name;
+                        U.promptsUsed = du.promptsUsed || 0;
+                    }
+                } catch (e) { console.log('User load error:', e); }
             }
             R();
         });
 
-        document.getElementById('nav').addEventListener('click',function(e){
-            if(e.target.dataset.p)SP(e.target.dataset.p);
+        // ========== NAV CLICK ==========
+        document.getElementById('nav').addEventListener('click', function(e) {
+            if (e.target.dataset.p) SP(e.target.dataset.p);
         });
-    </script
+    </script>
 </body>
 </html>
