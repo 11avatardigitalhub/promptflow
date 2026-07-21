@@ -50,7 +50,6 @@
             transition: background 0.3s, color 0.3s;
         }
         .app{max-width:500px;margin:auto;padding:16px 16px 90px}
-
         .card{
             background: var(--card);
             border: 1px solid var(--border);
@@ -239,8 +238,8 @@
             messagingSenderId: "681657211558",
             appId: "1:681657211558:web:e25e5be6d347f3c1f2f267"
         };
-        var XAI_KEY = "xai-qF4XKjxt9ldBoU26NTNcsKGvoRwC2hEEcdpxPXOrM0uIUTak4hiyuBbUN64a9iLYR7s12HjXngQpQTxC";
-        var AI_MODEL = "grok-2-1212";
+        var GROQ_KEY = "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";
+        var AI_MODEL = "llama-3.3-70b-versatile";
 
         // ========== INITIALIZE FIREBASE ==========
         firebase.initializeApp(FC);
@@ -397,7 +396,7 @@
             if (!t) return;
             document.getElementById('sB').disabled = true;
             document.getElementById('loadD').classList.remove('hidden');
-            var out = await AI("You are an expert consultant. Provide a DETAILED, structured solution for: " + t + "\nInclude: deep analysis, step-by-step plan, specific advice, and actionable next steps. Be thorough (500+ words). Use clear headings and bullet points.");
+            var out = await AI("You are an expert consultant. Provide a DETAILED, structured solution for: " + t + "\nInclude: deep analysis, step-by-step plan, specific advice, and actionable next steps. Be thorough.");
             var el = document.getElementById('sO');
             el.textContent = out;
             el.classList.remove('hidden');
@@ -527,14 +526,14 @@
             return h;
         }
 
-        // ========== XAI API CALL ==========
+        // ========== GROQ API CALL ==========
         async function AI(p) {
             try {
-                var r = await fetch('https://api.x.ai/v1/chat/completions', {
+                var r = await fetch('https://api.groq.com/openai/v1/chat/completions', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + XAI_KEY
+                        'Authorization': 'Bearer ' + GROQ_KEY
                     },
                     body: JSON.stringify({
                         model: AI_MODEL,
@@ -548,7 +547,7 @@
                 if (d.choices && d.choices[0] && d.choices[0].message) {
                     return d.choices[0].message.content;
                 }
-                return 'No response from AI';
+                return 'No response';
             } catch (e) {
                 return 'Network Error: ' + e.message;
             }
