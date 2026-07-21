@@ -1,0 +1,1 @@
+{"hosting":{"public":".","site":"promptflow-ai-7de15","ignore":["firebase.json","README.md",".git",".gitignore","node_modules"],"rewrites":[{"source":"**","destination":"/index.html"}]}}
